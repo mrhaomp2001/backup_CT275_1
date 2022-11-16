@@ -11,31 +11,35 @@ if (!empty($_SESSION["username"])) {
     Redirection('/login');
 }
 
-if ($user->maLoaiTaiKhoan <= 1) {
+if ($user->maLoaiTaiKhoan <= 2) {
     Redirection('/login');
 }
 
-$notice = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['questionContent']) && !empty($_POST['money']) && !empty($_POST['exp'])) {
+    if (!empty($_POST['username']) && !empty($_POST['loaiTaiKhoan']) && ($_POST['username'] != $_SESSION['username'])) {
 
-        $query = 'call ADDCAUHOI(?, ?, ?, ?)';
+        $query = 'call UPDATEMODERATOR(?, ?)';
 
         try {
             $sth = $pdo->prepare($query);
             $sth->execute([
-                $_SESSION['maLop'],
-                $_POST['questionContent'],
-                $_POST['money'],
-                $_POST['exp']
+                $_POST['username'],
+                $_POST['loaiTaiKhoan']
             ]);
-            Redirection('/adminClasses');
+            Redirection('/adminProvideAuthority');
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     } else {
+        Redirection('/adminProvideAuthority');
     }
 }
+
+$listUser = new TaiKhoanNguoiDung($pdo);
+
+$list = array();
+
+$list = $listUser->FindByUsernameMODERATOR();
 ?>
 
 <!DOCTYPE html>
@@ -83,47 +87,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-content">
-                    <h4 class="mb-3">Tạo câu hỏi mới</h4>
-                    <!-- ***** Banner Start ***** -->
+
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="main-profile ">
-                                <div class="row">
-                                    <h4 class="mb-3">Lớp: <?php echo $_POST['className']; ?></h4>
-
-                                    <h3 class="text-center">
-                                        <?php
-                                        echo $notice;
-                                        ?>
-                                    </h3>
-                                    <div style="height: 15px; width: 50px; text-align:center"></div>
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <form action="#" method="post" class="w-100">
-                                            <div class="mb-3">
-                                                <label class="form-label text-light">Nội dung câu hỏi</label>
-                                                <textarea class="form-control" name="questionContent" maxlength="256" placeholder="Nhập nội dung câu hỏi"></textarea>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label text-light">Tiền người học nhận được khi đúng</label>
-                                                <input type="number" class="form-control" name="money" min="1" max="900"  placeholder="Nhập tiền">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label text-light">Kinh nghiệm người học nhận được khi đúng</label>
-                                                <input type="number" class="form-control" name="exp" min="1" max="900" placeholder="Nhập kinh nghiệm">
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">
-                                                <h5>Tạo câu hỏi mới</h5>
-                                            </button>
-                                        </form>
+                            <div class="heading-section">
+                                <h2>Thêm cộng tác viên</h2>
+                                <form action="#" method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label text-light">Tài khoản của cộng tác viên</label>
+                                        <input type="text" class="form-control" name="username" placeholder="Nhập tài khoản của cộng tác viên để thêm">
+                                        <input type="hidden" name="loaiTaiKhoan" value="2">
                                     </div>
-                                </div>
+                                    <button type="submit" class="btn btn-cyborg my-3"> + Thêm cộng tác viên</button>
+                                </form>
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                        </div>
                     </div>
-                    <!-- ***** Banner End ***** -->
+
+                    <hr class="text-light">
+
+                    <!-- ***** Other Start ***** -->
+                    <div class="other-games">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="heading-section">
+                                    <h4 class="text-light">Tất cả các cộng tác viên</h4>
+                                </div>
+                            </div>
+                            <?php
+                            for ($i = 0; $i < count($list); $i++) {
+                                echo '              
+                    <div class="col-lg-6">
+                      <form action="#" method="post">
+                        <div class="item">
+                          <input type="hidden" name="username" value="' . $list[$i]->username . '">
+                          <input type="hidden" name="loaiTaiKhoan" value="1">
+
+                          <h4>' . $list[$i]->tenNguoiDung . '</h4>
+                          <p>a.k.a ' . $list[$i]->username . '</p>
+                          <ul>
+                            <li>
+                              <button type="submit" class="btn btn-cyborg text-end">Xóa quyền</button>
+                            </li>
+                          </ul>
+                        </div>
+                      </form>
+                    </div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <!-- ***** Other End ***** -->
                 </div>
+
+                <!-- ***** Most Popular End ***** -->
+
             </div>
         </div>
+    </div>
     </div>
 
     <footer>

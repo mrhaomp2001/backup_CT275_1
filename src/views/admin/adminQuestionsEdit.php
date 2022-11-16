@@ -57,7 +57,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pdo_error = $e->getMessage();
         }
     }
+
+    if (!empty($_POST['deleteCauTraLoi']) && $_POST['deleteCauTraLoi'] == 1) {
+        $query = 'call DELETECAUTRALOI(?)';
+
+        try {
+            $sth = $pdo->prepare($query);
+            $sth->execute([
+                $_POST['maCauTraLoi']
+            ]);
+        } catch (PDOException $e) {
+            $pdo_error = $e->getMessage();
+        }
+    }
 }
+
+use MagicClass\CauTraLoi;
+
+$list = array();
+
+$cauTraLoi = new CauTraLoi();
+$cauTraLoi->db = $pdo;
+$list = $cauTraLoi->GetByMaCauHoi($_SESSION['maCauHoi']);
+
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-lg-12">
                             <div class="main-profile ">
                                 <div class="row">
-                                    <h4 class="mb-3"><?php echo $_POST['className']; ?></h4>
+                                    <h4 class="mb-3"><?php echo $_SESSION['tenLop']; ?></h4>
                                     <h3 class="text-center">
                                     </h3>
                                     <div style="height: 15px; width: 50px; text-align:center"></div>
@@ -148,6 +170,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                     <!-- ***** Banner End ***** -->
+                    <div class="row py-3">
+                        <div class="main-profile">
+                            <h4 class="mb-3">Các câu trả lời</h4>
+                            <div class="col-12 text-end">
+                                <a href="/adminAnswerAdd" class="btn btn-cyborg">+ Thêm câu trả lời</a>
+                            </div>
+                            <?php
+                            for ($i = 0; $i < count($list); $i++) {
+
+                                $isCorrect = '';
+
+                                ($list[$i]->cauTraLoiDung == 1)
+                                    ? $isCorrect = '<p class="text-success">Đây là câu trả lời đúng</p>'
+                                    : $isCorrect = '<p class="text-warning">Đây là câu trả lời sai</p>';
+
+                                echo
+                                '
+                                <div class="col-lg-12 mb-3 mt-3">
+                                    <div class="left-info text-light">
+                                        <ul class="row list-inline">
+                                            <li> <h4 class="text-light"> Câu trả lời: ' . $list[$i]->noiDungTraLoi . ' ' . $isCorrect . ' </h4></li>
+                                            <li class="text-light list-inline-item">
+                                                <form action="/adminAnswerEdit" method="post" >
+                                                    <input type="hidden" name="maCauTraLoiT" value="' . $list[$i]->maCauTraLoi . '">
+                                                    <input type="hidden" name="noiDungTraLoiT" value="' . $list[$i]->noiDungTraLoi . '">
+                                                    <input type="hidden" name="noiDungSauTraLoiT" value="' . $list[$i]->noiDungSauTraLoi . '">
+                                                    <input type="hidden" name="cauTraLoiDungT" value="' . $list[$i]->cauTraLoiDung . '">
+
+                                                    <button type="submit" class="btn btn-secondary mx-3 w-25">
+                                                        <h6>Chỉnh sửa</h6>
+                                                    </button>
+                                                </form>
+                                            
+                                                <form action="#" method="post">
+                                                    <input type="hidden" name="deleteCauTraLoi" value="1">
+                                                    <input type="hidden" name="maCauTraLoi" value="' . $list[$i]->maCauTraLoi . '">
+                                                    <button type="submit" class="btn btn-danger mx-3 w-25">
+                                                        <h6>Xóa câu trả lời</h6>
+                                                    </button>
+                                                </form>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                ';
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

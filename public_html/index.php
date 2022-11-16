@@ -67,8 +67,9 @@ switch ($request) {
 
 
         //----------------------------------------------------------------
-        // ADMIN
+        // ADMIN 
         //----------------------------------------------------------------
+
         // Classes 
     case '/adminClasses':
         require ROOT_DIR . '/src/views/admin/adminClasses.php';
@@ -85,9 +86,19 @@ switch ($request) {
     case '/adminQuestionsEdit':
         require ROOT_DIR . '/src/views/admin/adminQuestionsEdit.php';
         break;
+    case '/adminAnswerAdd':
+        require ROOT_DIR . '/src/views/admin/adminAnswerAdd.php';
+        break;
+    case '/adminAnswerEdit':
+        require ROOT_DIR . '/src/views/admin/adminAnswerEdit.php';
+        break;
+    case '/adminProvideAuthority':
+        require ROOT_DIR . '/src/views/admin/adminProvideAuthority.php';
+        break;
         //----------------------------------------------------------------
-        // CSS 
+        // CSS
         //----------------------------------------------------------------
+
     case '/src/views/assets/css/fontawesome.css':
         require ROOT_DIR . '/src/views/assets/css/fontawesome.css';
         break;
@@ -112,6 +123,7 @@ switch ($request) {
         //----------------------------------------------------------------
         // JS
         //----------------------------------------------------------------
+
     case '/src/views/vendor/jquery/jquery.min.js':
         require ROOT_DIR . '/src/views/vendor/jquery/jquery.min.js';
         break;

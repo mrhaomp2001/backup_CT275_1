@@ -23,14 +23,12 @@ $listQuestion = array();
 
 $cauHoi = new CauHoi($pdo);
 
+if (!empty($_POST['maLop'])) {
+    $_SESSION['maLop'] = $_POST['maLop'];
+    $listQuestion = $cauHoi->GetByMaLop($_SESSION['maLop']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    if (!empty($_POST['maLop'])) {
-        $_SESSION['maLop'] = $_POST['maLop'];
-        $listQuestion = $cauHoi->GetByMaLop($_POST['maLop']);
-    }
-
     if (!empty($_POST['classNameEdit']) && !empty($_POST['classDescriptionEdit'])) {
 
         $query = 'call UPDATELOPHOC(?, ?, ?)';
@@ -44,9 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ]);
             Redirection('/adminClasses');
         } catch (PDOException $e) {
-            $pdo_error = $e->getMessage();
         }
     } else {
+    }
+
+    if (!empty($_POST['deleteLopHoc'])) {
+
+        $query = 'call DELETELOPHOC(?)';
+
+        try {
+            $sth = $pdo->prepare($query);
+            $sth->execute([
+                $_SESSION['maLop']
+            ]);
+            Redirection('/adminClasses');
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 }
 ?>
@@ -97,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-lg-12">
                 <div class="page-content">
                     <div class="row">
-                        <h1><?php echo $_POST['className']; ?></h1>
+                        <h1><?php echo $_SESSION['tenLop']; ?></h1>
                         <h4 class="mb-3 mt-3">Chỉnh sửa lớp học</h4>
                         <div class="col-lg-12">
                             <div class="main-profile ">
@@ -108,41 +120,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         ?>
                                     </h3>
                                     <div style="height: 15px; width: 50px; text-align:center"></div>
-                                    <div class="col-lg-12 d-flex justify-content-center">
 
-                                        <form action="#" method="post" id="loginForm" class="w-100">
-                                            <div class="mb-3">
-                                                <label class="form-label text-light">Tên lớp</label>
-                                                <input type="text" class="form-control" name="classNameEdit" maxlength="128" placeholder="Nhập tên lớp" value="<?php echo $_POST['className']; ?>">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label text-light">Miêu tả</label>
-                                                <textarea class="form-control" name="classDescriptionEdit" maxlength="256" placeholder="Nhập miêu tả" rows="5"><?php echo $_POST['classDescription']; ?></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">
-                                                <h5>Chỉnh sửa</h5>
-                                            </button>
-                                        </form>
-                                    </div>
+
+                                    <form action="#" method="post" id="loginForm" class="w-100">
+                                        <div class="mb-3">
+                                            <label class="form-label text-light">Tên lớp</label>
+                                            <input type="text" class="form-control" name="classNameEdit" maxlength="128" placeholder="Nhập tên lớp" value="<?php echo $_POST['className']; ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label text-light">Miêu tả</label>
+                                            <textarea class="form-control" name="classDescriptionEdit" maxlength="256" placeholder="Nhập miêu tả" rows="5"><?php echo $_POST['classDescription']; ?></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <h5>Chỉnh sửa</h5>
+                                        </button>
+                                    </form>
+                                </div>
+                                <hr class="text-light">
+                                <div class="col-lg-12">
+                                    <h4>Xóa lớp học</h4>
+
+                                    <p class="text-warning">Xin hãy chắc rằng bạn đã <b>xóa hết tất cả</b> các câu hỏi trong lớp trước khi thực hiện xóa.</p>
+                                    <p class="text-danger">Lưu ý, khi thực hiện xóa thành công, lớp học sẽ không thể khôi phục.</p>
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="deleteLopHoc" value="1">
+                                        <button type="submit" class="btn btn-danger mx-3 w-25">
+                                            <h6>Xóa câu trả lời</h6>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <hr class="text-light mt-5">
-                        <h4 class="mb-2 mt-3 row justify-content-between">
-                            <div class="col-6">Các câu hỏi</div>
-                            <div class="col-6 text-end">
-                                <form action="/adminQuestionsAdd" method="post">
-                                    <input type="hidden" name="className" value="<?php echo $_POST['className']; ?>">
-                                    <button class="btn btn-cyborg">+ Thêm câu hỏi</button>
-                                </form>
-                            </div>
-                        </h4>
-                        <div class="col-12">
-                            <div class="main-profile">
-                                <?php
-                                for ($i = 0; $i < count($listQuestion); $i++) {
-                                    echo
-                                    '
+                    </div>
+                    <hr class="text-light mt-5">
+                    <h4 class="mb-2 mt-3 row justify-content-between">
+                        <div class="col-6">Các câu hỏi</div>
+                        <div class="col-6 text-end">
+                            <form action="/adminQuestionsAdd" method="post">
+                                <input type="hidden" name="className" value="<?php echo $_POST['className']; ?>">
+                                <button class="btn btn-cyborg">+ Thêm câu hỏi</button>
+                            </form>
+                        </div>
+                    </h4>
+                    <div class="col-12">
+                        <div class="main-profile">
+                            <?php
+                            for ($i = 0; $i < count($listQuestion); $i++) {
+                                echo
+                                '
                                     <div class="col-lg-12 mb-3 mt-3">
                                         <div class="left-info text-light">
                                             <ul>
@@ -166,16 +191,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                     </div>
                                     ';
-                                }
-                                ?>
-                            </div>
+                            }
+                            ?>
                         </div>
-
                     </div>
-                    <!-- ***** Banner End ***** -->
+
                 </div>
+                <!-- ***** Banner End ***** -->
             </div>
         </div>
+    </div>
     </div>
 
     <footer>

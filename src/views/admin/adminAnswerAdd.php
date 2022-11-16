@@ -16,22 +16,29 @@ if ($user->maLoaiTaiKhoan <= 1) {
 }
 
 $notice = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['questionContent']) && !empty($_POST['money']) && !empty($_POST['exp'])) {
 
-        $query = 'call ADDCAUHOI(?, ?, ?, ?)';
+if (empty($_SESSION['maCauHoi'])) {
+    Redirection('/adminClasses');
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST['noiDungTraLoi']) && !empty($_POST['noiDungSauTraLoi'])) {
+
+        $isCorrect = (isset($_POST['isCorrect'])) ? 1 : 0;
+
+        $query = 'call ADDCAUTRALOI(?, ?, ?, ?)';
 
         try {
             $sth = $pdo->prepare($query);
             $sth->execute([
-                $_SESSION['maLop'],
-                $_POST['questionContent'],
-                $_POST['money'],
-                $_POST['exp']
+                $_SESSION['maCauHoi'],
+                $_POST['noiDungTraLoi'],
+                $_POST['noiDungSauTraLoi'],
+                $isCorrect
             ]);
-            Redirection('/adminClasses');
+            Redirection('/adminQuestionsEdit');
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            $pdo_error = $e->getMessage();
         }
     } else {
     }
@@ -83,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-content">
-                    <h4 class="mb-3">Tạo câu hỏi mới</h4>
+                    <h4 class="mb-3">Tạo câu trả lời</h4>
                     <!-- ***** Banner Start ***** -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="main-profile ">
                                 <div class="row">
-                                    <h4 class="mb-3">Lớp: <?php echo $_POST['className']; ?></h4>
+                                    <h4 class="mb-3">Câu hỏi: <?php echo $_SESSION['noiDungCauHoi']; ?></h4>
 
                                     <h3 class="text-center">
                                         <?php
@@ -100,16 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <div class="col-lg-12 d-flex justify-content-center">
                                         <form action="#" method="post" class="w-100">
                                             <div class="mb-3">
-                                                <label class="form-label text-light">Nội dung câu hỏi</label>
-                                                <textarea class="form-control" name="questionContent" maxlength="256" placeholder="Nhập nội dung câu hỏi"></textarea>
+                                                <label class="form-label text-light">Nội dung câu trả lời</label>
+                                                <textarea class="form-control" name="noiDungTraLoi" maxlength="256" placeholder="Nhập nội dung câu trả lời"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label text-light">Tiền người học nhận được khi đúng</label>
-                                                <input type="number" class="form-control" name="money" min="1" max="900"  placeholder="Nhập tiền">
+                                                <label class="form-label text-light">Nội dung hiển thị sau khi chọn đáp án</label>
+                                                <textarea class="form-control" name="noiDungSauTraLoi" maxlength="256" placeholder="Nhập nội dung hiển thị sau khi chọn đáp án này, nội dung này sẽ được hiển thị ngay sau khi đáp án được chọn"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label text-light">Kinh nghiệm người học nhận được khi đúng</label>
-                                                <input type="number" class="form-control" name="exp" min="1" max="900" placeholder="Nhập kinh nghiệm">
+                                                <label class="form-label text-light">Đây là câu trả lời đúng? </label>
+                                                <input type="checkbox" class="form-check-input" name="isCorrect">
                                             </div>
                                             <button type="submit" class="btn btn-primary">
                                                 <h5>Tạo câu hỏi mới</h5>
