@@ -16,6 +16,9 @@
                             if ($user->maLoaiTaiKhoan > 1) {
                                 echo '<li><a href="/adminClasses" class="btn btn-success text-light px-4">Quản trị</a></li>';
                             }
+                            if ($user->maLoaiTaiKhoan > 2) {
+                                echo '<li><a href="/adminProvideAuthority" class="btn btn-primary text-light px-4">HR</a></li>';
+                            }
                         }
                         ?>
 

@@ -20,7 +20,7 @@ if (!empty($_SESSION["username"])) {
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <title>Cyborg - Awesome HTML5 Template</title>
+  <title>Trang đăng ký - Hội Học thuật</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -69,11 +69,8 @@ require ROOT_DIR . "/src/views/header/header.php";
             <div class="row">
               <div class="col-lg-7">
                 <div class="header-text">
-                  <h6>Welcome To Cyborg</h6>
-                  <h4><em>Browse</em> Our Popular Games Here</h4>
-                  <div class="main-button">
-                    <a href="browse.html">Browse Now</a>
-                  </div>
+                  <h6>Chào mừng bạn đến với hội!</h6>
+                  <h4>Chúng tôi luôn cố gắn giúp đỡ các người mới, nếu có lỗi kỹ thuật, hãy liên hệ chúng tôi.</h4>
                 </div>
               </div>
             </div>
@@ -119,19 +116,9 @@ require ROOT_DIR . "/src/views/header/header.php";
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>
-            Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
-
-            <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php
+  require ROOT_DIR . "/src/views/header/footer.php";
+  ?>
 
   <script type="text/javascript" src="/src/views/vendor/jquery/jquery.validate.min.js"></script>
 

@@ -35,7 +35,7 @@ $_SESSION['isStudy'] = 1;
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <title>Cyborg - Awesome HTML5 Template</title>
+  <title>Học tập - Hội Học thuật</title>
 
   <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -47,8 +47,8 @@ $_SESSION['isStudy'] = 1;
 </head>
 
 
-<body>
 
+<body>
   <!-- ***** Preloader Start ***** -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
@@ -66,6 +66,7 @@ $_SESSION['isStudy'] = 1;
   <?php
   require ROOT_DIR . "/src/views/header/header.php";
   ?>
+  <!-- ***** Header Area End ***** -->
   <!-- ***** Header Area End ***** -->
 
   <div class="container">
@@ -152,19 +153,9 @@ $_SESSION['isStudy'] = 1;
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>
-            Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
-
-            <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php
+  require ROOT_DIR . "/src/views/header/footer.php";
+  ?>
 
 </body>
 

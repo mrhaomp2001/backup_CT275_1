@@ -91,7 +91,7 @@ $list = $cauTraLoi->GetByMaCauHoi($_SESSION['maCauHoi']);
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <title>Cyborg - Awesome HTML5 Template</title>
+    <title>Chỉnh sửa câu hỏi - Hội Học thuật</title>
 
     <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -138,7 +138,7 @@ $list = $cauTraLoi->GetByMaCauHoi($_SESSION['maCauHoi']);
                                     </h3>
                                     <div style="height: 15px; width: 50px; text-align:center"></div>
                                     <div class="row col-lg-12 d-flex justify-content-center">
-                                        <form action="#" method="post" class="col-12 w-100">
+                                        <form action="#" method="post" class="col-12 w-100" id="form">
                                             <div class="mb-3">
                                                 <label class="form-label text-light">Nội dung câu hỏi</label>
                                                 <textarea class="form-control" name="questionContent" maxlength="256" placeholder="Nhập nội dung câu hỏi"><?php echo $_SESSION['noiDungCauHoi']; ?></textarea>
@@ -225,20 +225,55 @@ $list = $cauTraLoi->GetByMaCauHoi($_SESSION['maCauHoi']);
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
+    <?php
+    require ROOT_DIR . "/src/views/header/footer.php";
+    ?>
 
-                        <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script type="text/javascript" src="/src/views/vendor/jquery/jquery.validate.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").validate({
+                rules: {
+                    questionContent: {
+                        required: true,
+                    },
+                    money: {
+                        required: true,
+                        min: 1,
+                    },
+                    exp: {
+                        required: true,
+                        min: 1,
+                    }
+                },
+                messages: {
+                    questionContent: {
+                        required: "Bạn chưa nhập tên đăng nhập",
+                    },
+                    money: {
+                        required: "Bạn chưa nhập mật khẩu",
+                        min: "Bạn chưa nhập đúng số lượng (ít nhất là 1)",
+                    },
+                    exp: {
+                        required: "Bạn chưa nhập mật khẩu",
+                        min: "Bạn chưa nhập đúng số lượng (ít nhất là 1)",
+                    },
+                },
+                errorElement: "div",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback-element text-light");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+            });
+        });
+    </script>
 </body>
 
 </html>

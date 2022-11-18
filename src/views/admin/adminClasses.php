@@ -35,7 +35,7 @@ $list = $lopHocs->GetAll();
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <title>Cyborg - Awesome HTML5 Template</title>
+  <title>Quản trị lớp học - Hội Học thuật</title>
 
   <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -68,14 +68,31 @@ $list = $lopHocs->GetAll();
   <!-- ***** Header Area End ***** -->
 
   <div class="container">
+    <div class="col-lg-12">
+      <div class="page-content">
+        <div class="row">
+          <div class="heading-section">
+            <h3>
+              <?php
+              if ($user->maLoaiTaiKhoan == 2) {
+                echo 'Thật tuyệt vời! bạn là một <b>Moderator </b>! <br> 
+                Bạn có thể chỉnh sửa các lớp học!
+                <p> (đây là thông báo gán cứng.) </p>
+                ';
+              }
+              ?>
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-12">
         <div class="page-content">
-
           <div class="row">
             <div class="col-lg-12">
               <div class="heading-section">
-                <h2>Thêm lớp mới </h2>
+                <h2>Thêm lớp mới</h2>
                 <h4>
                   <a href="/adminClassesAdd" class="btn btn-cyborg my-3"> + Thêm lớp học mới</a>
                 </h4>
@@ -84,7 +101,7 @@ $list = $lopHocs->GetAll();
             <div class="col-lg-12">
             </div>
           </div>
-          
+
           <hr class="text-light">
 
           <!-- ***** Other Start ***** -->
@@ -132,19 +149,9 @@ $list = $lopHocs->GetAll();
   </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>
-            Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
-
-            <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php
+  require ROOT_DIR . "/src/views/header/footer.php";
+  ?>
 
 </body>
 

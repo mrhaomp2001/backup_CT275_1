@@ -22,7 +22,7 @@ if (!empty($_SESSION["username"])) {
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <title>Cyborg - Awesome HTML5 Template</title>
+  <title>Trang đăng nhập - Hội Học thuật</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -71,11 +71,8 @@ require ROOT_DIR . "/src/views/header/header.php";
             <div class="row">
               <div class="col-lg-7">
                 <div class="header-text">
-                  <h6>Welcome To Cyborg</h6>
-                  <h4><em>Browse</em> Our Popular Games Here</h4>
-                  <div class="main-button">
-                    <a href="browse.html">Browse Now</a>
-                  </div>
+                  <h4><em>Đăng nhập liền tay</em><br> Học ngay lập tức</h4>
+
                 </div>
               </div>
             </div>
@@ -97,7 +94,7 @@ require ROOT_DIR . "/src/views/header/header.php";
                     <input type="text" class="form-control" name="username" maxlength="32" placeholder="Nhập tài khoản">
                   </div>
                   <div class="mb-3">
-                    <label  class="form-label text-light">Mật khẩu</label>
+                    <label class="form-label text-light">Mật khẩu</label>
                     <input type="password" class="form-control" name="password" maxlength="32" placeholder="Nhập mật khẩu">
                   </div>
                   <button type="submit" class="btn btn-primary">
@@ -123,19 +120,9 @@ require ROOT_DIR . "/src/views/header/header.php";
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>
-            Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
-
-            <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php
+  require ROOT_DIR . "/src/views/header/footer.php";
+  ?>
 
   <script type="text/javascript" src="/src/views/vendor/jquery/jquery.validate.min.js"></script>
 

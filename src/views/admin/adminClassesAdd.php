@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <title>Cyborg - Awesome HTML5 Template</title>
+    <title>Thêm lớp học - Hội Học thuật</title>
 
     <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <div style="height: 15px; width: 50px; text-align:center"></div>
                                     <div class="col-lg-12 d-flex justify-content-center">
 
-                                        <form action="#" method="post" id="loginForm" class="w-100">
+                                        <form action="#" method="post" id="form" class="w-100">
                                             <div class="mb-3">
                                                 <label class="form-label text-light">Tên lớp</label>
                                                 <input type="text" class="form-control" name="className" maxlength="128" placeholder="Nhập tên lớp">
@@ -121,19 +121,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
+    <?php
+    require ROOT_DIR . "/src/views/header/footer.php";
+    ?>
 
-                        <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script type="text/javascript" src="/src/views/vendor/jquery/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").validate({
+                rules: {
+                    classNameEdit: {
+                        required: true,
+                    },
+                    classDescriptionEdit: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    classNameEdit: {
+                        required: "Trường này là bắt buộc",
+                    },
+                    classDescriptionEdit: {
+                        required: "Trường này là bắt buộc",
+                    },
+                },
+                errorElement: "div",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback-element text-light");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+            });
+        });
+    </script>
 
 </body>
 

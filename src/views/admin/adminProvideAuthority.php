@@ -51,7 +51,7 @@ $list = $listUser->FindByUsernameMODERATOR();
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <title>Cyborg - Awesome HTML5 Template</title>
+    <title>HR - Hội Học thuật</title>
 
     <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -91,14 +91,14 @@ $list = $listUser->FindByUsernameMODERATOR();
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="heading-section">
-                                <h2>Thêm cộng tác viên</h2>
+                                <h2>Thêm quản trị viên</h2>
                                 <form action="#" method="post">
                                     <div class="mb-3">
-                                        <label class="form-label text-light">Tài khoản của cộng tác viên</label>
-                                        <input type="text" class="form-control" name="username" placeholder="Nhập tài khoản của cộng tác viên để thêm">
+                                        <label class="form-label text-light">Tài khoản của quản trị viên</label>
+                                        <input type="text" class="form-control" name="username" placeholder="Nhập tài khoản của quản trị viên để thêm">
                                         <input type="hidden" name="loaiTaiKhoan" value="2">
                                     </div>
-                                    <button type="submit" class="btn btn-cyborg my-3"> + Thêm cộng tác viên</button>
+                                    <button type="submit" class="btn btn-cyborg my-3"> + Thêm quản trị viên</button>
                                 </form>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ $list = $listUser->FindByUsernameMODERATOR();
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="heading-section">
-                                    <h4 class="text-light">Tất cả các cộng tác viên</h4>
+                                    <h4 class="text-light">Tất cả các quản trị viên</h4>
                                 </div>
                             </div>
                             <?php
@@ -149,19 +149,9 @@ $list = $listUser->FindByUsernameMODERATOR();
     </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
-
-                        <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php
+    require ROOT_DIR . "/src/views/header/footer.php";
+    ?>
 
 </body>
 

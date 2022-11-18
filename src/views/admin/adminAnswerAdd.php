@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <title>Cyborg - Awesome HTML5 Template</title>
+    <title>Thêm câu trả lời - Hội Học thuật</title>
 
     <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -133,20 +133,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
+    <?php
+    require ROOT_DIR . "/src/views/header/footer.php";
+    ?>
 
-                        <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script type="text/javascript" src="/src/views/vendor/jquery/jquery.validate.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").validate({
+                rules: {
+                    noiDungTraLoi: {
+                        required: true,
+                    },
+                    noiDungSauTraLoi: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    noiDungTraLoi: {
+                        required: "Trường này là bắt buộc",
+                    },
+                    noiDungSauTraLoi: {
+                        required: "Trường này là bắt buộc",
+                    },
+                },
+                errorElement: "div",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback-element text-light");
+                    error.insertAfter(element);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                },
+            });
+        });
+    </script>
 </body>
 
 </html>
