@@ -56,4 +56,4 @@ if (!empty($_SESSION['username'])) {
     }
     $sth->closeCursor();
 }
-echo 'bootstrap.php';
+echo ' ';

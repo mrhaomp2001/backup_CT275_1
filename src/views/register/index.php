@@ -7,7 +7,9 @@ use MagicClass\TaiKhoanNguoiDung;
 if (!empty($_SESSION["username"])) {
   $user = new TaiKhoanNguoiDung($pdo);
   $user = $user->FindByUsername($_SESSION["username"]);
+  Redirection('/home');
 } else {
+
 }
 ?>
 

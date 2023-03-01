@@ -88,7 +88,7 @@ require ROOT_DIR . "/src/views/header/header.php";
                                 echo $result;
                                 ?>
                             <div class="main-button">
-                                <a href="/register">Đăng ký lại</a>
+                                <a href="/register">trở về đăng nhập</a>
                             </div>
                             </p>
                         </div>

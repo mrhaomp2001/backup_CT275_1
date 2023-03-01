@@ -114,7 +114,7 @@ $list = $lopHocs->GetAll();
               </div>
               <?php
               for ($i = 0; $i < count($list); $i++) {
-                echo '              
+                echo '
                 <div class="col-lg-6">
                   <form action="/adminClassesEdit" method="post">
                     <div class="item">

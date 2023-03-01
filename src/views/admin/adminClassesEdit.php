@@ -23,14 +23,6 @@ $listQuestion = array();
 
 $cauHoi = new CauHoi($pdo);
 
-if (!empty($_POST['maLop'])) {
-    $_SESSION['maLop'] = $_POST['maLop'];
-    $_SESSION['tenLop'] = $_POST['className'];
-    $listQuestion = $cauHoi->GetByMaLop($_SESSION['maLop']);
-}
-else {
-    Redirection('/adminClasses');
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['classNameEdit']) && !empty($_POST['classDescriptionEdit'])) {
@@ -59,12 +51,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sth->execute([
                 $_SESSION['maLop']
             ]);
-            Redirection('/adminClasses');
+            // Redirection('/adminClasses');
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
 }
+
+if (!empty($_POST['maLop'])) {
+    $_SESSION['maLop'] = $_POST['maLop'];
+    $_SESSION['tenLop'] = $_POST['className'];
+    $listQuestion = $cauHoi->GetByMaLop($_SESSION['maLop']);
+}
+else {
+    Redirection('/adminClasses');
+}
+
 ?>
 
 <!DOCTYPE html>

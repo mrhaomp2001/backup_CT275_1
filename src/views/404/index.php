@@ -19,6 +19,7 @@ $user = $user->FindByUsername($_SESSION["username"]);
 
     <title>Lỗi 404 - Hội Học thuật</title>
 
+
     <link href="/src/views/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/src/views/assets/css/fontawesome.css" type="text/css" />
@@ -107,19 +108,10 @@ $user = $user->FindByUsername($_SESSION["username"]);
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved.
+    <?php
+    require ROOT_DIR . "/src/views/header/footer.php";
+    ?>
 
-                        <br />Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a> Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </body>
 

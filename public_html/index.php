@@ -9,6 +9,7 @@ $request = $_SERVER['REQUEST_URI'];
 // assets (imgs)
 //----------------------------------------------------------------
 $assets = '/src/views/assets/';
+
 if (str_contains($request, $assets)) {
     require ROOT_DIR . $request;
 }
